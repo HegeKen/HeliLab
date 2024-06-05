@@ -77,7 +77,7 @@ comment:
 
 # display in the card at the top of the page under the subtitle
 display_index_top:
-  text: "dev-mdsuper"
+  text: "海力力的博客"
   avatar: "" # path( or url) of avatar such as /avatar.png
 
 # assets
