@@ -295,15 +295,6 @@ function renderDetail(id) {
         <div class="detail-num reveal">${project.num}</div>
         <h1 class="detail-title reveal reveal-delay-1">${project.name}</h1>
         <p class="detail-tagline reveal reveal-delay-2">${project.tagline}</p>
-        <div class="detail-meta reveal reveal-delay-3">
-          ${project.tech.map(t => `<span class="detail-tag">${t}</span>`).join('')}
-        </div>
-        ${project.github ? `
-          <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="detail-github-link reveal reveal-delay-4">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-            <span class="detail-github-repo">${project.github.replace('https://github.com/', '')}</span>
-          </a>
-        ` : ''}
       </div>
 
       <div class="detail-visual reveal">
@@ -346,12 +337,12 @@ function renderDetail(id) {
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
           ` : ''}
-          ${project.github ? `
-            <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="btn-ghost">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-              GitHub
-            </a>
-          ` : ''}
+        ${project.github ? `
+          <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="detail-github-link reveal reveal-delay-4">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            <span class="detail-github-repo">${project.github.replace('https://github.com/', '')}</span>
+          </a>
+        ` : ''}
         </div>
       ` : ''}
 
@@ -446,6 +437,11 @@ function renderAbout() {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
             <span class="label">Website</span>
             <span>www.helilab.cn</span>
+          </a>
+          <a href="https://github.com/HegeKen/HeliLab" target="_blank" rel="noopener noreferrer" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <span class="label">Source</span>
+            <span>github.com/HegeKen/HeliLab</span>
           </a>
         </div>
       </div>
