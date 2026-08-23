@@ -90,8 +90,50 @@ const projects = [
     placeholder: 'card-placeholder-mrdata'
   },
   {
-    id: 'novel',
+    id: 'hub',
     num: '05',
+    name: 'MiROMs HUB',
+    nameZh: '小米 ROM 聚合中心',
+    tagline: '一站式聚合 Xiaomi / Redmi / POCO 全系设备的 ROM 版本、更新日志与下载链接。',
+    description: '面向 ROM 爱好者的一站式信息聚合平台。数据由独立的 miroms 数据仓库自动生成，Nuxt 4 服务端渲染提供设备检索、品牌 / Android / 系统版本多维筛选，以及每台设备的完整 ROM 分支表格与中英文更新日志。前端与数据完全解耦，数据仓库提交后经 Cloudflare Pages 自动触发重新部署。',
+    features: [
+      '300+ 设备全量覆盖，品牌 / Android / 系统版本多维筛选',
+      '每台设备完整 ROM 表格：正式版、开发版、运营商定制版、政企版',
+      '近 7 日更新概览与中英文更新日志',
+      'Nuxt 4 SSR + 静态预渲染，中英双语 i18n 与暗色模式',
+      '数据仓库独立维护，Webhook 自动触发站点部署'
+    ],
+    tech: ['Nuxt 4', 'Vue 3', 'TypeScript', 'Tailwind CSS', 'i18n', 'Cloudflare Pages'],
+    highlights: '数据仓库驱动的一站式 ROM 聚合',
+    url: 'https://hub.miuier.com',
+    github: 'https://github.com/HegeKen/hub.miuier.com',
+    image: 'images/hub.png',
+    placeholder: 'card-placeholder-hub'
+  },
+  {
+    id: 'miroms',
+    num: '06',
+    name: 'miroms',
+    nameZh: '小米 ROM 数据仓库',
+    tagline: 'MiROMs HUB 的数据引擎——326 台设备的全量 ROM 数据与自动化采集管道。',
+    description: 'MiROMs HUB 的数据底座。全部数据由纯 Python 3 管道从 MySQL 数据库自动生成，核心包负责抓取并解密小米更新服务器，覆盖 MIUI 与 HyperOS 两代系统及正式版、开发版、运营商定制版、政企版等全部分支。导出 V1 / V2 / V3 三种格式的 JSON API，提交后经 GitHub Pages 自动部署。',
+    features: [
+      '326 台设备 JSON，V3 全量格式同时覆盖 MIUI + HyperOS',
+      '纯 Python 3 实现，零第三方依赖，模块化核心包',
+      '小米更新服务器抓取与 AES 解密，自动数据同步',
+      'V1 / V2 / V3 多版本 API，附中英文更新日志',
+      'GitHub Pages 自动部署，前端 / 后台 / 客户端统一消费'
+    ],
+    tech: ['Python 3', 'AES Crypto', 'MySQL', 'JSON API', 'GitHub Pages'],
+    highlights: 'V3 全量数据 API 与零依赖采集管道',
+    url: 'https://api.miuier.com',
+    image: 'images/miroms.png',
+    github: 'https://github.com/HegeKen/miroms',
+    placeholder: 'card-placeholder-miroms'
+  },
+  {
+    id: 'novel',
+    num: '07',
     name: 'novel-proofreader',
     nameZh: 'AI 小说校对器',
     tagline: '基于 Tauri 2 的 AI 小说排版与查错桌面/移动应用，专为百万字级网络小说设计。',
@@ -112,7 +154,7 @@ const projects = [
   },
   {
     id: 'quarantine',
-    num: '06',
+    num: '08',
     name: 'QuarantineRemover',
     nameZh: 'macOS 隔离移除',
     tagline: '一款 macOS 原生工具，一键移除应用隔离属性，解决"无法验证开发者"的困扰。',
@@ -280,6 +322,8 @@ function renderDetail(id) {
     hyperdata: 'linear-gradient(135deg, #0d1117 0%, #0d1a2e 50%, #0d1117 100%)',
     nuxtmr: 'linear-gradient(135deg, #0d1117 0%, #1a1a2e 50%, #0a2540 100%)',
     mrdata: 'linear-gradient(135deg, #0d1117 0%, #1a1520 50%, #0d1117 100%)',
+    hub: 'linear-gradient(135deg, #0d1117 0%, #1a1520 50%, #0d1117 100%)',
+    miroms: 'linear-gradient(135deg, #0d1117 0%, #0d1a2e 50%, #0d1117 100%)',
     novel: 'linear-gradient(135deg, #0d1117 0%, #1a1025 50%, #0d1117 100%)',
     quarantine: 'linear-gradient(135deg, #0d1117 0%, #0d1f2d 50%, #0d1117 100%)'
   };

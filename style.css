@@ -779,6 +779,51 @@ img {
   transform: translate(-50%, -50%);
 }
 
+.card-placeholder-hub {
+  background: linear-gradient(135deg, #0d1117 0%, #1a1520 50%, #0d1117 100%);
+}
+
+.card-placeholder-hub::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-placeholder-hub::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(0, 212, 255, 0.06) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, rgba(0, 212, 255, 0.06) 1px, transparent 1px) 0 0 / 28px 28px;
+}
+
+.card-placeholder-miroms {
+  background: linear-gradient(135deg, #0d1117 0%, #0d1a2e 50%, #0d1117 100%);
+}
+
+.card-placeholder-miroms::before {
+  content: '';
+  position: absolute;
+  inset: 24px;
+  border: 1px solid rgba(0, 212, 255, 0.1);
+  border-radius: 4px;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 14px,
+    rgba(0, 212, 255, 0.05) 14px,
+    rgba(0, 212, 255, 0.05) 15px
+  );
+}
+
 /* Featured grid - first card spans full width on larger screens */
 .featured-grid {
   display: grid;
