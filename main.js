@@ -520,10 +520,10 @@ function renderAbout() {
             <span class="label">Website</span>
             <span>www.helilab.cn</span>
           </a>
-          <a href="https://github.com/HegeKen/HeliLab" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <a href="https://github.com/HegeKen/HegeKen" target="_blank" rel="noopener noreferrer" class="contact-link">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
             <span class="label">Source</span>
-            <span>github.com/HegeKen/HeliLab</span>
+            <span>github.com/HegeKen/HegeKen</span>
           </a>
         </div>
       </div>

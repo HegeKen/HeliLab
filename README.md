@@ -1,4 +1,4 @@
-# HeliLab — 合理实验室
+# HeliLab — 合理实验室 by HegeKen
 
 独立开发者 [HegeKen](https://github.com/HegeKen) 的技术作品集网站。每一行代码、每一个架构决策都经得起推敲，在复杂度与简洁之间找到合理的平衡点。
 
