@@ -199,6 +199,29 @@ const app = document.getElementById('app');
 const navLinks = document.querySelectorAll('.nav-link');
 const navMobileLinks = document.querySelectorAll('.nav-mobile-link');
 
+// --- Responsive image helpers ---
+function isMobileViewport() {
+  return window.matchMedia('(max-width: 768px)').matches;
+}
+
+function mobileImageFor(project) {
+  if (!project.image) return null;
+  return project.image.replace(/(\.[a-z0-9]+)$/i, '_mobile$1');
+}
+
+// Display image: prefer the dedicated mobile shot on small screens, fall back to the original
+function displayImage(project) {
+  if (isMobileViewport()) {
+    const mobile = mobileImageFor(project);
+    if (mobile) return mobile;
+  }
+  return project.image;
+}
+
+// Inline onerror handler: swap to the original image if the mobile shot is not yet provided
+const imgFallback = (project) =>
+  `onerror="if(this.src!==this.dataset.fallback){this.onerror=null;this.src=this.dataset.fallback}" data-fallback="${project.image}"`;
+
 // --- Router ---
 function getRoute() {
   const hash = window.location.hash || '#/';
@@ -359,7 +382,9 @@ function renderDetail(id) {
 
       <div class="detail-visual reveal">
         ${project.image
-          ? `<div class="detail-visual-placeholder"><img src="${project.image}" alt="${project.name}"></div>`
+          ? `<div class="detail-visual-placeholder detail-visual-zoom" data-lightbox="${project.image}" role="button" tabindex="0" aria-label="查看大图">
+              <img src="${displayImage(project)}" alt="${project.name}" ${imgFallback(project)}>
+            </div>`
           : `<div class="detail-visual-placeholder" style="background: ${gradients[project.id]}"><span class="detail-visual-label">DEMO / SCREENSHOT</span></div>`
         }
       </div>
@@ -510,7 +535,7 @@ function renderAbout() {
 
 function renderProjectCard(project, index) {
   const imageHtml = project.image
-    ? `<div class="card-image-placeholder"><img src="${project.image}" alt="${project.name}" loading="lazy"></div>`
+    ? `<div class="card-image-placeholder"><img src="${displayImage(project)}" alt="${project.name}" loading="lazy" ${imgFallback(project)}></div>`
     : `<div class="card-image-placeholder ${project.placeholder}"></div>`;
   return `
     <a href="#/project/${project.id}" class="project-card reveal ${index > 0 ? 'reveal-delay-' + Math.min(index, 5) : ''}" data-id="${project.id}">
@@ -574,6 +599,62 @@ function initVisits() {
   }, 1000);
 }
 
+// --- Lightbox (Fullscreen image viewer) ---
+function openLightbox(src, alt) {
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', alt || '查看大图');
+  overlay.innerHTML = `
+    <div class="lightbox-backdrop" data-lightbox-close></div>
+    <button class="lightbox-close" data-lightbox-close aria-label="关闭">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <figure class="lightbox-figure">
+      <img src="${src}" alt="${alt || ''}">
+    </figure>
+  `;
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
+  overlay.querySelector('.lightbox-backdrop').addEventListener('click', closeLightbox);
+  overlay.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+  overlay.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+  requestAnimationFrame(() => overlay.classList.add('lightbox-open'));
+}
+
+function closeLightbox() {
+  const overlay = document.querySelector('.lightbox');
+  if (!overlay) return;
+  overlay.classList.remove('lightbox-open');
+  document.body.style.overflow = '';
+  setTimeout(() => overlay.remove(), 300);
+}
+
+document.addEventListener('click', (e) => {
+  const trigger = e.target.closest('[data-lightbox]');
+  if (trigger) {
+    e.preventDefault();
+    openLightbox(trigger.dataset.lightbox, trigger.getAttribute('aria-label') || '');
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeLightbox();
+    return;
+  }
+  const trigger = e.target.closest('[data-lightbox]');
+  if (e.key === 'Enter' || e.key === ' ') {
+    if (trigger) {
+      e.preventDefault();
+      openLightbox(trigger.dataset.lightbox, trigger.getAttribute('aria-label') || '');
+    }
+  }
+});
+
 // --- Scroll Reveal ---
 function setupScrollReveal() {
   const reveals = document.querySelectorAll('.reveal:not(.visible)');
@@ -596,10 +677,21 @@ function setupScrollReveal() {
 }
 
 // --- Init ---
+const mqMobile = window.matchMedia('(max-width: 768px)');
+let isMobile = mqMobile.matches;
+
 window.addEventListener('hashchange', navigate);
 window.addEventListener('DOMContentLoaded', () => {
   navigate();
   initVisits();
+});
+
+// Re-render when crossing the mobile breakpoint so the correct (mobile/original) image is used
+mqMobile.addEventListener('change', (e) => {
+  if (e.matches !== isMobile) {
+    isMobile = e.matches;
+    navigate();
+  }
 });
 
 // Handle initial load
