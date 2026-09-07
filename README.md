@@ -11,7 +11,7 @@
 
 ## 项目概览
 
-HeliLab 是一个纯静态 SPA 作品集网站，用原生 HTML / CSS / JavaScript 构建，无任何框架依赖。展示了 6 个技术项目：小米 ROM 追踪站点、AI 工具、macOS 原生应用等。
+HeliLab 是一个纯静态 SPA 作品集网站，用原生 HTML / CSS / JavaScript 构建，无任何框架依赖。展示了 9 个技术项目：小米 ROM 追踪站点、数据仓库、本地文件搜索工具、AI 工具、macOS 原生应用等。
 
 整个网站仅由 **3 个核心文件** 构成（[index.html](index.html)、[main.js](main.js)、[style.css](style.css)），用 `hashchange` 做前端路由，配合滚动动画、页面过渡、响应式布局和无障碍设计。
 
@@ -23,8 +23,11 @@ HeliLab 是一个纯静态 SPA 作品集网站，用原生 HTML / CSS / JavaScri
 | 02 | **HyperData** | HyperOS 核心数据层，自动化采集管道与静态 JSON 数据仓库 | Python, AES Crypto, MySQL, Selenium | [data.hyperos.fans](https://data.hyperos.fans) |
 | 03 | **NuxtMR** | MIUI 官方 ROM 下载聚合平台，数据驱动的静态内容架构 | Nuxt 4, Vue 3, TypeScript, Python | [roms.miuier.com](https://roms.miuier.com) |
 | 04 | **MRData** | MIUI ROM 数据仓库，200+ 设备数据与 20+ 爬虫脚本 | Python, AES Crypto, Cloudflare Pages | [data.miuier.com](https://data.miuier.com) |
-| 05 | **novel-proofreader** | AI 小说校对桌面/移动应用，百万字级文本处理 | Tauri 2, React 19, TypeScript, Zustand | [proofreader.helilab.cn](https://proofreader.helilab.cn) |
-| 06 | **QuarantineRemover** | macOS 隔离属性移除工具，Liquid Glass 视觉效果 | Swift, SwiftUI, macOS | [GitHub](https://github.com/HegeKen/QuarantineRemover) |
+| 05 | **MiROMs HUB** | 小米 ROM 数据平台 monorepo，前端浏览 + 后台直连 MySQL + 数据子模块 | Nuxt 4, Vue 3, TypeScript, Tailwind CSS, MySQL | [hub.miuier.com](https://hub.miuier.com) |
+| 06 | **miroms** | MiROMs HUB 数据引擎，326 台设备全量 ROM 数据与零依赖采集管道 | Python 3, AES Crypto, MySQL, JSON API, GitHub Pages | [api.miuier.com](https://api.miuier.com) |
+| 07 | **novel-proofreader** | AI 小说校对桌面/移动应用，百万字级文本处理 | Tauri 2, React 19, TypeScript, Zustand | [proofreader.helilab.cn](https://proofreader.helilab.cn) |
+| 08 | **QuarantineRemover** | macOS 隔离属性移除工具，Liquid Glass 视觉效果 | Swift, SwiftUI, macOS | [GitHub](https://github.com/HegeKen/QuarantineRemover) |
+| 09 | **DocSniffer** | 基于 Tauri 2 + Rust + Tantivy 的本地文件全文搜索桌面应用 | Tauri 2, Rust, Tantivy, React 18, TypeScript | [GitHub](https://github.com/HegeKen/DocSniffer) |
 
 ## 项目数据
 
@@ -36,8 +39,11 @@ HeliLab 是一个纯静态 SPA 作品集网站，用原生 HTML / CSS / JavaScri
 | [HyperData](https://github.com/HegeKen/HyperData) | ![](https://img.shields.io/github/stars/HegeKen/HyperData?style=social) | ![](https://img.shields.io/github/forks/HegeKen/HyperData?style=social) | 180+ | Python |
 | [NuxtMR](https://github.com/HegeKen/NuxtMR) | ![](https://img.shields.io/github/stars/HegeKen/NuxtMR?style=social) | ![](https://img.shields.io/github/forks/HegeKen/NuxtMR?style=social) | 120+ | HTML |
 | [MRData](https://github.com/HegeKen/MRData) | ![](https://img.shields.io/github/stars/HegeKen/MRData?style=social) | ![](https://img.shields.io/github/forks/HegeKen/MRData?style=social) | 90+ | Python |
+| [hub.miuier.com](https://github.com/HegeKen/hub.miuier.com) | ![](https://img.shields.io/github/stars/HegeKen/hub.miuier.com?style=social) | ![](https://img.shields.io/github/forks/HegeKen/hub.miuier.com?style=social) | — | Vue |
+| [miroms](https://github.com/HegeKen/miroms) | ![](https://img.shields.io/github/stars/HegeKen/miroms?style=social) | ![](https://img.shields.io/github/forks/HegeKen/miroms?style=social) | — | Python |
 | [novel-proofreader](https://github.com/HegeKen/novel-proofreader) | ![](https://img.shields.io/github/stars/HegeKen/novel-proofreader?style=social) | ![](https://img.shields.io/github/forks/HegeKen/novel-proofreader?style=social) | 200+ | TypeScript |
 | [QuarantineRemover](https://github.com/HegeKen/QuarantineRemover) | ![](https://img.shields.io/github/stars/HegeKen/QuarantineRemover?style=social) | ![](https://img.shields.io/github/forks/HegeKen/QuarantineRemover?style=social) | 40+ | Swift |
+| [DocSniffer](https://github.com/HegeKen/DocSniffer) | ![](https://img.shields.io/github/stars/HegeKen/DocSniffer?style=social) | ![](https://img.shields.io/github/forks/HegeKen/DocSniffer?style=social) | — | Rust |
 
 ### 相关项目
 
