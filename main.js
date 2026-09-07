@@ -94,17 +94,17 @@ const projects = [
     num: '05',
     name: 'MiROMs HUB',
     nameZh: '小米 ROM 聚合中心',
-    tagline: '一站式聚合 Xiaomi / Redmi / POCO 全系设备的 ROM 版本、更新日志与下载链接。',
-    description: '面向 ROM 爱好者的一站式信息聚合平台。数据由独立的 miroms 数据仓库自动生成，Nuxt 4 服务端渲染提供设备检索、品牌 / Android / 系统版本多维筛选，以及每台设备的完整 ROM 分支表格与中英文更新日志。前端与数据完全解耦，数据仓库提交后经 Cloudflare Pages 自动触发重新部署。',
+    tagline: '小米 / Redmi / POCO 设备 ROM 数据平台，覆盖 MIUI 与 HyperOS 全量固件信息查询。',
+    description: '面向 ROM 爱好者的一站式数据平台 monorepo。前端站点基于 Nuxt 4 + Vue 3 服务端渲染，提供机型浏览、多维度筛选、每台设备的完整 ROM 分支表格与中英文更新日志；管理后台同样基于 Nuxt 4，直连 MySQL 维护设备、机型、ROM、分支、系列数据。数据由 data/ 下的 miroms 子模块自动生成，前端与数据完全解耦。',
     features: [
-      '300+ 设备全量覆盖，品牌 / Android / 系统版本多维筛选',
+      '前端站点：机型浏览、品牌 / Android / 系统版本多维筛选',
       '每台设备完整 ROM 表格：正式版、开发版、运营商定制版、政企版',
       '近 7 日更新概览与中英文更新日志',
-      'Nuxt 4 SSR + 静态预渲染，中英双语 i18n 与暗色模式',
-      '数据仓库独立维护，Webhook 自动触发站点部署'
+      '管理后台：直连 MySQL 维护设备 / ROM / 分支 / 系列，含数据自查',
+      'monorepo 结构，web + admin + data 子模块解耦部署'
     ],
-    tech: ['Nuxt 4', 'Vue 3', 'TypeScript', 'Tailwind CSS', 'i18n', 'Cloudflare Pages'],
-    highlights: '数据仓库驱动的一站式 ROM 聚合',
+    tech: ['Nuxt 4', 'Vue 3', 'TypeScript', 'Tailwind CSS', 'MySQL', 'i18n'],
+    highlights: '前端 + 后台 + 数据子模块的 monorepo 架构',
     url: 'https://hub.miuier.com',
     github: 'https://github.com/HegeKen/hub.miuier.com',
     image: 'images/hub.png',
@@ -171,6 +171,26 @@ const projects = [
     github: 'https://github.com/HegeKen/QuarantineRemover',
     image: 'images/quarantine.png',
     placeholder: 'card-placeholder-quarantine'
+  },
+  {
+    id: 'docsniffer',
+    num: '09',
+    name: 'DocSniffer',
+    nameZh: '本地文件全文搜索',
+    tagline: '基于 Tauri 2 + Rust + Tantivy 的跨平台本地文件搜索与内容检索桌面应用。',
+    description: '一款跨平台（Windows / macOS / Linux）的本地文件全文检索工具。扫描本地目录、对文件建立 Tantivy 全文索引，支持文件名 / 路径 / 内容检索及高级查询语法，并内置基于规则（正则 / 关键词）的匹配检测。全部数据仅保存在本地。除 GUI 外还提供无 WebView 依赖的服务器模式（docsniffer-server），在采用 nightly + build-std 定制 Win7 目标后，成为 Windows 7 的官方支持途径。',
+    features: [
+      '目录扫描：递归遍历 + 实时进度，文件监控增量重索引',
+      'Tantivy 全文索引：BM25 相关性排序，中文单字 Tokenizer',
+      '多格式内容提取：Office（DOCX/XLSX/PPTX/WPS）、PDF、编码自动识别',
+      '高级查询语法：path: / ext: / size: / mtime: / 排除 / OR / 短语',
+      '服务器模式：单文件无 GUI 依赖，内嵌 Web 界面，支持 Windows 7'
+    ],
+    tech: ['Tauri 2', 'Rust', 'Tantivy', 'React 18', 'TypeScript', 'Vite 5'],
+    highlights: '单文件便携 + 服务器模式兼容 Windows 7',
+    github: 'https://github.com/HegeKen/DocSniffer',
+    image: 'images/DocSniffer.png',
+    placeholder: 'card-placeholder-docsniffer'
   }
 ];
 
@@ -210,6 +230,7 @@ function navigate() {
   // Setup scroll animations after render
   requestAnimationFrame(() => {
     setupScrollReveal();
+    renderVisits();
   });
 }
 
@@ -283,10 +304,7 @@ function renderHome() {
         </div>
       </section>
 
-      <footer class="site-footer">
-        <span class="footer-text">&copy; 2026 <span class="accent">Helilab</span> 合理实验室</span>
-        <span class="footer-text">Built with precision & restraint</span>
-      </footer>
+      ${footerHtml()}
     </div>
   `;
 }
@@ -301,10 +319,7 @@ function renderProjects() {
       <div class="projects-list-grid">
         ${projects.map((p, i) => renderProjectCard(p, i)).join('')}
       </div>
-      <footer class="site-footer" style="margin-top: 48px;">
-        <span class="footer-text">&copy; 2026 <span class="accent">Helilab</span> 合理实验室</span>
-        <span class="footer-text">Built with precision & restraint</span>
-      </footer>
+      ${footerHtml(48)}
     </div>
   `;
 }
@@ -325,7 +340,8 @@ function renderDetail(id) {
     hub: 'linear-gradient(135deg, #0d1117 0%, #1a1520 50%, #0d1117 100%)',
     miroms: 'linear-gradient(135deg, #0d1117 0%, #0d1a2e 50%, #0d1117 100%)',
     novel: 'linear-gradient(135deg, #0d1117 0%, #1a1025 50%, #0d1117 100%)',
-    quarantine: 'linear-gradient(135deg, #0d1117 0%, #0d1f2d 50%, #0d1117 100%)'
+    quarantine: 'linear-gradient(135deg, #0d1117 0%, #0d1f2d 50%, #0d1117 100%)',
+    docsniffer: 'linear-gradient(135deg, #0d1117 0%, #1a1a2e 50%, #0d1117 100%)'
   };
 
   app.innerHTML = `
@@ -390,10 +406,7 @@ function renderDetail(id) {
         </div>
       ` : ''}
 
-      <footer class="site-footer" style="margin-top: 48px;">
-        <span class="footer-text">&copy; 2026 <span class="accent">Helilab</span> 合理实验室</span>
-        <span class="footer-text">Built with precision & restraint</span>
-      </footer>
+      ${footerHtml(48)}
     </div>
   `;
 }
@@ -490,10 +503,7 @@ function renderAbout() {
         </div>
       </div>
 
-      <footer class="site-footer" style="margin-top: 48px;">
-        <span class="footer-text">&copy; 2026 <span class="accent">Helilab</span> 合理实验室</span>
-        <span class="footer-text">Built with precision & restraint</span>
-      </footer>
+      ${footerHtml(48)}
     </div>
   `;
 }
@@ -520,6 +530,50 @@ function renderProjectCard(project, index) {
   `;
 }
 
+// --- Footer ---
+function footerHtml(marginTop) {
+  return `
+    <footer class="site-footer"${marginTop ? ` style="margin-top: ${marginTop}px;"` : ''}>
+      <span class="footer-text">&copy; 2026 <span class="accent">Helilab</span> 合理实验室</span>
+      <span class="footer-text footer-visit">
+        访客 <span id="busuanzi_value_site_uv" data-visit="site_uv">—</span>
+        · 访问 <span id="busuanzi_value_site_pv" data-visit="site_pv">—</span>
+      </span>
+      <span class="footer-text">Built with precision & restraint</span>
+    </footer>
+  `;
+}
+
+// --- Visit Count (Busuanzi) ---
+const visitStore = {};
+let visitPoll = 0;
+
+function captureBusuanzi() {
+  [['site_pv', 'busuanzi_value_site_pv'], ['site_uv', 'busuanzi_value_site_uv']].forEach(([key, id]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const v = el.textContent.trim();
+    if (v && v !== '—') visitStore[key] = v;
+  });
+  return !!visitStore.site_pv && !!visitStore.site_uv;
+}
+
+function renderVisits() {
+  captureBusuanzi();
+  Object.entries(visitStore).forEach(([key, v]) => {
+    document.querySelectorAll(`[data-visit="${key}"]`).forEach(node => {
+      node.textContent = v;
+    });
+  });
+}
+
+function initVisits() {
+  renderVisits();
+  const timer = setInterval(() => {
+    if (renderVisits() || ++visitPoll > 60) clearInterval(timer);
+  }, 1000);
+}
+
 // --- Scroll Reveal ---
 function setupScrollReveal() {
   const reveals = document.querySelectorAll('.reveal:not(.visible)');
@@ -543,7 +597,10 @@ function setupScrollReveal() {
 
 // --- Init ---
 window.addEventListener('hashchange', navigate);
-window.addEventListener('DOMContentLoaded', navigate);
+window.addEventListener('DOMContentLoaded', () => {
+  navigate();
+  initVisits();
+});
 
 // Handle initial load
 if (!window.location.hash) {
